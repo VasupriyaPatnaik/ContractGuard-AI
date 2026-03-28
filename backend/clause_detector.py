@@ -73,29 +73,35 @@ Contract text:
 
 """
 
+    import json
     try:
-
         response = client.chat.completions.create(
-
             model="llama-3.3-70b-versatile",
-
             messages=[
                 {
                     "role": "user",
                     "content": prompt
                 }
             ],
-
             temperature=0.2   # lower = more factual
         )
-
         result = response.choices[0].message.content
-
-        return result
-
-
+        # Clean up LLM output: remove code block markers and whitespace
+        cleaned = result.strip()
+        if cleaned.startswith('```'):
+            cleaned = cleaned.lstrip('`')
+            # Remove language marker if present
+            cleaned = cleaned.lstrip('json').lstrip()
+            # Remove trailing code block
+            if cleaned.endswith('```'):
+                cleaned = cleaned[:-3].rstrip()
+        # Try to parse the cleaned result as JSON
+        try:
+            parsed = json.loads(cleaned)
+            return parsed
+        except Exception as json_err:
+            return {"error": "Failed to parse LLM output as JSON", "raw": result, "details": str(json_err)}
     except Exception as e:
-
         return {
             "error": str(e)
         }
