@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomePage({ username, onStart, onLogin, onSignup }) {
+function HomePage({ username, onStart, onLogin, onSignup, onLogout }) {
   
   const scrollTo = (id) => {
     const element = document.getElementById(id);
@@ -47,10 +47,13 @@ function HomePage({ username, onStart, onLogin, onSignup }) {
 
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           {username ? (
-            <div style={userBadgeStyle}>
-              <i className="fas fa-user-circle" style={{ fontSize: 18, color: "#2E7D64" }}></i>
-              {username}
-            </div>
+            <>
+              <div style={userBadgeStyle}>
+                <i className="fas fa-user-circle" style={{ fontSize: 18, color: "#2E7D64" }}></i>
+                {username}
+              </div>
+              <button onClick={onLogout} style={{ marginLeft: 8, color: "#fff", background: "#2E7D64", border: "none", borderRadius: 8, padding: "8px 18px", fontWeight: 600, fontSize: 15, cursor: "pointer" }}>Logout</button>
+            </>
           ) : (
             <>
               <button onClick={onLogin} style={navLinkStyle}>Login</button>
@@ -60,7 +63,7 @@ function HomePage({ username, onStart, onLogin, onSignup }) {
         </div>
       </nav>
 
-      {/* Hero Section with Depth */}
+      {/* Hero Section */}
       <header style={heroSectionStyle}>
         <div style={{ maxWidth: "1000px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <h1 style={heroTitleStyle}>
@@ -81,8 +84,9 @@ function HomePage({ username, onStart, onLogin, onSignup }) {
         </div>
       </header>
 
-      {/* Features Grid */}
       <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
+        
+        {/* Features Section */}
         <section id="features" style={{ padding: "100px 0" }}>
           <div style={{ textAlign: "center", marginBottom: "60px" }}>
             <h2 style={sectionTitleStyle}>Why Global Teams Trust Us</h2>
@@ -95,32 +99,48 @@ function HomePage({ username, onStart, onLogin, onSignup }) {
           </div>
         </section>
 
-        {/* Improved About Section with Emojis */}
+        {/* REFINED MISSION SECTION */}
         <section id="about" style={aboutContainerStyle}>
-          <div style={{ flex: 1, padding: "40px" }}>
-            <h2 style={{ ...sectionTitleStyle, textAlign: "left", marginBottom: "20px" }}>
-              Our Mission 🌐
-            </h2>
-            <p style={aboutTextStyle}>
-              <span style={emojiTagStyle}>💡</span> **Clarity Over Complexity:** We believe law should be readable. Our AI translates "Legalese" into plain English.
-            </p>
-            <p style={aboutTextStyle}>
-              <span style={emojiTagStyle}>🛡️</span> **Consumer Protection:** We provide the shield you need against predatory financial traps found in fine print.
-            </p>
-            <p style={aboutTextStyle}>
-              <span style={emojiTagStyle}>⚡</span> **Instant Intelligence:** No more waiting days for legal reviews. Get professional-grade insights immediately.
-            </p>
-          </div>
-          <div style={aboutImagePlaceholder}>
-             <div style={{fontSize: "80px"}}>📊</div>
-             <p style={{color: "#fff", fontWeight: 600, marginTop: "20px"}}>Visual Risk Mapping</p>
+          <div style={{ padding: "60px 50px" }}>
+            <div style={{ marginBottom: "40px" }}>
+              <h2 style={{ ...sectionTitleStyle, textAlign: "left", fontSize: "40px", marginBottom: "16px" }}>
+                Our Mission <span style={{fontSize: '28px'}}>🌐</span>
+              </h2>
+              <div style={{ width: "60px", height: "4px", background: "linear-gradient(90deg, #2E7D64, #1F6E8C)", borderRadius: "2px" }}></div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px" }}>
+              <div style={missionItemStyle}>
+                <div style={missionIconCircle}><span style={{fontSize: '20px'}}>💡</span></div>
+                <div>
+                  <h4 style={missionHeadingStyle}>Clarity Over Complexity</h4>
+                  <p style={missionParaStyle}>We believe legal transparency is a right. Our AI translates dense "Legalese" into clear, actionable English so you sign with confidence.</p>
+                </div>
+              </div>
+
+              <div style={missionItemStyle}>
+                <div style={missionIconCircle}><span style={{fontSize: '20px'}}>🛡️</span></div>
+                <div>
+                  <h4 style={missionHeadingStyle}>Consumer Advocacy</h4>
+                  <p style={missionParaStyle}>We provide a professional-grade shield against predatory financial traps and hidden fine-print penalties often used by large institutions.</p>
+                </div>
+              </div>
+
+              <div style={missionItemStyle}>
+                <div style={missionIconCircle}><span style={{fontSize: '20px'}}>⚡</span></div>
+                <div>
+                  <h4 style={missionHeadingStyle}>Instant Intelligence</h4>
+                  <p style={missionParaStyle}>No more waiting days for legal reviews. Our mission is to democratize high-end legal intelligence for everyone, immediately.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* CTA Contact Section */}
         <section id="contact" style={{ padding: "120px 0" }}>
           <div style={ctaBoxStyle}>
-            <h2 style={{ fontSize: "42px", fontWeight: 800, marginBottom: "20px" }}>Protect your interests today. 📩</h2>
+            <h2 style={{ fontSize: "42px", fontWeight: 800, marginBottom: "20px" }}>Protect your interests today.</h2>
             <p style={{ fontSize: "18px", opacity: 0.9, marginBottom: "40px", maxWidth: "600px", margin: "0 auto 40px" }}>
               Questions about our AI or security? Our team is standing by to help you secure your documents.
             </p>
@@ -139,7 +159,7 @@ function HomePage({ username, onStart, onLogin, onSignup }) {
   );
 }
 
-// --- Top-Notch Styles ---
+// --- Enhanced Styles ---
 
 const logoIconStyle = {
   width: "40px", height: "40px", background: "#E6F4F1", 
@@ -150,8 +170,7 @@ const logoIconStyle = {
 const navLinkStyle = {
   background: "none", border: "none", color: "#475569",
   fontWeight: 600, fontSize: "15px", cursor: "pointer",
-  transition: "all 0.2s ease",
-  ":hover": { color: "#2E7D64" }
+  transition: "all 0.2s ease"
 };
 
 const userBadgeStyle = {
@@ -164,13 +183,6 @@ const userBadgeStyle = {
 const heroSectionStyle = {
   padding: "140px 20px", textAlign: "center",
   background: "radial-gradient(circle at 50% 0%, #E6F4F1 0%, #F8FAFC 100%)",
-};
-
-const badgeStyle = {
-  display: "inline-block", background: "#fff", color: "#2E7D64",
-  padding: "8px 20px", borderRadius: "50px", fontSize: "13px",
-  fontWeight: 700, marginBottom: "32px", border: "1px solid #CBD5E1",
-  boxShadow: "0 4px 10px rgba(0,0,0,0.03)"
 };
 
 const heroTitleStyle = {
@@ -190,12 +202,6 @@ const heroBtnStyle = {
   cursor: "pointer", boxShadow: "0 10px 25px rgba(31, 110, 140, 0.3)"
 };
 
-const secondaryBtnStyle = {
-  background: "#fff", color: "#1E293B", border: "1px solid #CBD5E1",
-  borderRadius: "12px", fontWeight: 700, fontSize: "18px",
-  padding: "20px 40px", cursor: "pointer"
-};
-
 const FeatureCard = ({ icon, title, text }) => (
   <div style={{
     background: "#fff", padding: "50px 40px", borderRadius: "30px",
@@ -210,24 +216,44 @@ const FeatureCard = ({ icon, title, text }) => (
 );
 
 const aboutContainerStyle = {
-  background: "#fff", borderRadius: "40px", overflow: "hidden",
-  display: "flex", flexWrap: "wrap", border: "1px solid #E2E8F0",
-  marginTop: "60px", boxShadow: "0 20px 50px rgba(0,0,0,0.03)"
+  background: "#fff", 
+  borderRadius: "40px", 
+  border: "1px solid #E2E8F0",
+  marginTop: "60px", 
+  boxShadow: "0 20px 50px rgba(0,0,0,0.03)"
 };
 
-const aboutTextStyle = {
-  fontSize: "18px", color: "#475569", lineHeight: "1.8", 
-  display: "flex", alignItems: "flex-start", marginBottom: "25px"
+const missionItemStyle = {
+  display: "flex",
+  gap: "20px",
+  alignItems: "flex-start"
 };
 
-const emojiTagStyle = {
-  marginRight: "15px", fontSize: "22px"
+const missionIconCircle = {
+  width: "50px",
+  height: "50px",
+  background: "#F1F5F9",
+  borderRadius: "14px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  border: "1px solid #E2E8F0"
 };
 
-const aboutImagePlaceholder = {
-  flex: 1, minWidth: "300px", background: "#1F6E8C",
-  display: "flex", flexDirection: "column", alignItems: "center", 
-  justifyContent: "center"
+const missionHeadingStyle = {
+  fontSize: "20px",
+  fontWeight: 800,
+  color: "#0F172A",
+  marginBottom: "10px",
+  marginTop: "5px"
+};
+
+const missionParaStyle = {
+  fontSize: "16px",
+  color: "#475569",
+  lineHeight: "1.7",
+  margin: 0
 };
 
 const ctaBoxStyle = {

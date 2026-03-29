@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Signup({ onSignup }) {
+function Signup({ onSignup, onGoHome }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [signedUp, setSignedUp] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +16,10 @@ function Signup({ onSignup }) {
       alert("Passwords do not match");
       return;
     }
-    if (onSignup) onSignup({ username, email, password });
+    if (onSignup) {
+      onSignup({ username, email, password });
+      setSignedUp(true);
+    }
   };
 
   return (
@@ -57,6 +61,11 @@ function Signup({ onSignup }) {
             <span role="img" aria-label="rocket">🚀</span> Empower your contracts, empower your future!
           </div>
         </div>
+        {signedUp ? (
+          <div style={{ color: "#2E7D64", fontWeight: 600, fontSize: 16, margin: "24px 0" }}>
+            Signup successful! Please login to continue.
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} style={{ width: "100%" }}>
           <div style={{ marginBottom: 18 }}>
             <label style={{ display: "block", marginBottom: 6, fontWeight: 600, color: "#234" }}>Username</label>
@@ -203,9 +212,8 @@ function Signup({ onSignup }) {
             <i className="fas fa-user-plus" style={{ marginRight: 8 }}></i> Sign Up
           </button>
         </form>
-        <div style={{ marginTop: 18, textAlign: "center", color: "#5e8a98", fontSize: 15 }}>
-          Already have an account? <Link to="/login" style={{ color: "#1F6E8C", fontWeight: 600, textDecoration: "underline", marginLeft: 4 }}>Go to Login</Link>
-        </div>
+        )}
+        <button onClick={onGoHome} style={{ marginTop: 18, color: "#2E7D64", background: "none", border: "1.5px solid #2E7D64", borderRadius: 8, padding: "8px 18px", fontWeight: 600, fontSize: 15, cursor: "pointer" }}>Go to Home</button>
       </div>
     </div>
   );

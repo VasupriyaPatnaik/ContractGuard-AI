@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Login({ onLogin }) {
+function Login({ onLogin, onSignup, onGoHome }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -136,8 +136,9 @@ function Login({ onLogin }) {
           </button>
         </form>
         <div style={{ marginTop: 18, textAlign: "center", color: "#5e8a98", fontSize: 15 }}>
-          Don't have an account? <Link to="/signup" style={{ color: "#1F6E8C", fontWeight: 600, textDecoration: "underline", marginLeft: 4 }}>Sign up</Link>
+          Don't have an account? <button onClick={onSignup} style={{ color: "#1F6E8C", fontWeight: 600, textDecoration: "underline", marginLeft: 4, background: "none", border: "none", cursor: "pointer" }}>Sign up</button>
         </div>
+        <button onClick={onGoHome} style={{ marginTop: 18, color: "#2E7D64", background: "none", border: "1.5px solid #2E7D64", borderRadius: 8, padding: "8px 18px", fontWeight: 600, fontSize: 15, cursor: "pointer" }}>Go to Home</button>
       </div>
     </div>
   );
